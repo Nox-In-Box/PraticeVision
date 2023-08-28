@@ -9,6 +9,7 @@ class Model(torch.nn.Module):
         self.conv3 = torch.nn.Conv2d(16, 8, 5)
         self.conv4 =  torch.nn.Conv2d(8, 4, 4)
         self.conv5 = torch.nn.Conv2d(4, 2, 3)
+        self.flatten = torch.nn.Flatten()
         #this is regressor layer
         self.numClasses = numClasses
         self.input = torch.nn.Linear(3872, 1000)
@@ -18,5 +19,15 @@ class Model(torch.nn.Module):
 
     def forward(self, x):
         print("forwarding")
+        out = self.conv1(x)
+        out = self.conv2(out)
+        out = self.conv3(out)
+        out = self.conv4(out)
+        out = self.conv5(out)
+        out = self.flatten(out)
+        out = self.input(out)
+        out = self.hidden1(out)
+        out = self.output(out)
+
 
 
